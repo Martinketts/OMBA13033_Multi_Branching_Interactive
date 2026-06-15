@@ -1,7 +1,7 @@
 /* ============================================================
    Branching Scenario — ALL EDITABLE CONTENT
-   File:  OMBA13033-content.js
-   Module: OMBA13033 — Strategic Management
+   File:  OMDE11044-content.js
+   Module: OMDE11044 — Learning Theory, Instructional Design & Technology
    --------------------------------------------------------------
    A "hybrid" branching scenario engine: a FORKING decision graph
    PLUS four hidden meters that some branches require to unlock.
@@ -9,7 +9,7 @@
    This file is a content-only sibling of branching-content.js. It
    reuses the SAME engine (branching-app.jsx) and the SAME styles
    (branching-styles.css). To run it, load THIS file instead of
-   branching-content.js — see "OMBA13033 Branching Scenario.html".
+   branching-content.js — see "OMDE11044 Branching Scenario.html".
 
    This file defines everything the learner reads or chooses:
      SECTION 1 — Meta (module code + scenario title)
@@ -31,10 +31,10 @@
            summary,               // revealed under the pill when picked
            reflection,            // shown in the end-of-scenario debrief
            lessons: [LESSON.x],   // readings shown in the debrief
-           effects: { advantage, profit, growth, confidence },  // meter deltas
-           next: 'nodeId' | endingId | 'RESOLVE',               // where it leads
+           effects: { pedagogy, engagement, feasibility, buyin },  // meter deltas
+           next: 'nodeId' | endingId | 'RESOLVE',                  // where it leads
            gate: (m) => boolean,  // OPTIONAL — option is LOCKED until true
-           gateHint: 'Locked — requires …'                      // shown when locked
+           gateHint: 'Locked — requires …'                        // shown when locked
          }
        ]
      }
@@ -47,9 +47,9 @@
    SECTION 1 — META
    ────────────────────────────────────────────────────────────── */
 const META = {
-  code:    "OMBA13033",
+  code:    "OMDE11044",
   eyebrow: "Branching Scenario",
-  title:   "The Strategy Mandate: Competing Under Pressure",
+  title:   "The Redesign Brief: Designing Learning That Sticks",
 };
 
 
@@ -60,9 +60,9 @@ const INTRO = {
   left: {
     heading: "Branching Scenario",
     bodyParas: [
-      "This is a branching simulation. Unlike a fixed quiz, the path you travel is built by your decisions — different choices open different scenes, and some routes only unlock if your earlier strategic work has earned them.",
-      "Four dimensions of the firm respond quietly to every choice you make: Competitive Advantage, Profitability, Market Growth, and Board Confidence. You won't see the dials while you play — only at the end, when the consequences are revealed.",
-      "There is no single right answer. There are stronger and weaker ways to set strategy under constraint, and a map at the end will show the road you took and the roads you didn't.",
+      "This is a branching simulation. Unlike a fixed quiz, the path you travel is built by your decisions — different choices open different scenes, and some routes only unlock if your earlier design work has earned them.",
+      "Four dimensions of the project respond quietly to every choice you make: Pedagogical Integrity, Learner Engagement, Delivery Feasibility, and Stakeholder Buy-in. You won't see the dials while you play — only at the end, when the consequences are revealed.",
+      "There is no single right answer. There are stronger and weaker ways to design under constraint, and a map at the end will show the road you took and the roads you didn't.",
     ],
     cta: "Choose a structure below, then click Continue to begin.",
   },
@@ -70,9 +70,9 @@ const INTRO = {
     heading: "Learning Objectives",
     lead: "By the end of this activity, learners will be able to:",
     objectives: [
-      "Apply external (general / industry / five forces) and internal (value chain, core competencies) analysis to diagnose a firm's strategic position.",
-      "Evaluate business-level strategies — cost leadership, differentiation, focus, and integrated — against competitive rivalry and the five forces.",
-      "Formulate corporate-level diversification and international strategies (multidomestic, global, transnational) appropriate to the firm's competencies, returns, and risk.",
+      "Apply Knowles' principles of andragogy to redesign a course for self-directed, experience-rich adult learners.",
+      "Evaluate problem-based, experiential (Kolb), and gamified designs against authentic, real-world learning goals.",
+      "Align an instructional-design model (ADDIE, Dick & Carey, ASSURE) and educational technology to learner needs, accessibility, and evaluation.",
     ],
   },
 };
@@ -85,11 +85,11 @@ const CONTEXT = {
   eyebrow:  "Introduction",
   heading:  "Scenario (Problem / Context)",
   paragraphs: [
-    "You are the newly appointed Chief Strategy Officer at \u201CMeridian Instruments,\u201D a mid-size precision-instruments manufacturer whose home market has matured. You have your first hundred days to set the strategy that will define the company's next decade.",
-    "The diagnosis is sobering. Margins are eroding as fast-cycle, low-cost rivals copy your products within months; growth has stalled; a powerful division head is wedded to the legacy product line; and the board has split between those demanding aggressive expansion and those demanding cost discipline.",
+    "You are the newly appointed Lead Learning Designer at \"Beacon Professional Academy,\" which delivers a flagship online certificate to working adults. You have one term \u2014 twelve weeks \u2014 to redesign and pilot the failing course before the next cohort enrols.",
+    "The diagnosis is grim. Completion sits at 38%, and learners call the course irrelevant \u2014 generic theory, content-dumped modules, and a final exam that tests things never taught. A long-serving subject-matter expert is sceptical of any change to \u201chis\u201d material. And the Programme Director has set a hard target: redesign, pilot, and launch within budget.",
   ],
   bold:
-    "Read the environment, build on real core competencies, choose how you compete, and decide how you grow — or watch the strategy unravel. Every choice moves the dials you cannot see.",
+    "Balance adult-learning principles, sound instructional design, accessible technology, and evaluation — or watch the redesign unravel. Every choice moves the dials you cannot see.",
 };
 
 
@@ -98,31 +98,35 @@ const CONTEXT = {
    The four hidden dials. Each starts at `start` (0–100).
    ────────────────────────────────────────────────────────────── */
 const METERS = [
-  { key: "advantage",  label: "Competitive Advantage", short: "Advantage",  color: "#7a6cd6" },
-  { key: "profit",     label: "Profitability",         short: "Profit",     color: "#ed8b2b" },
-  { key: "growth",     label: "Market Growth",         short: "Growth",     color: "#59a85f" },
-  { key: "confidence", label: "Board Confidence",      short: "Board",      color: "#3b7fc7" },
+  { key: "pedagogy",   label: "Pedagogical Integrity", short: "Pedagogy",    color: "#7a6cd6" },
+  { key: "engagement", label: "Learner Engagement",    short: "Engagement",  color: "#59a85f" },
+  { key: "feasibility",label: "Delivery Feasibility",  short: "Feasibility", color: "#ed8b2b" },
+  { key: "buyin",      label: "Stakeholder Buy-in",    short: "Buy-in",      color: "#3b7fc7" },
 ];
-const METER_START = { advantage: 50, profit: 50, growth: 50, confidence: 50 };
+const METER_START = { pedagogy: 50, engagement: 50, feasibility: 50, buyin: 50 };
 
 
 /* ──────────────────────────────────────────────────────────────
    SECTION 5 — LESSON LINK POOLS
    Reused across options so you only edit a URL once.
-   (URLs taken from the OMBA13033 lesson notes.)
+   (URLs taken from the OMDE11044 lesson notes, Lessons 5–8.)
    ────────────────────────────────────────────────────────────── */
-const BASE = "https://www.openlearning.com/rafflesuniversity/courses/omba130033-strategic-management-v2/";
+const BASE = "https://www.openlearning.com/rafflesuniversity/courses/omed12033-learning-theory-instructional-design-and-technology/";
 const LESSON = {
-  inputs:        { title: "1.1 Strategic Management Inputs",                              url: BASE + "unit_1_1_lesson_title/" },
-  external:      { title: "2.1 External Environment",                                     url: BASE + "12---topic-title/" },
-  internal:      { title: "3.1 The Internal Environment",                                 url: BASE + "21-the-internal-environment-v2/" },
-  business:      { title: "4.1 Business-Level Strategies",                                url: BASE + "22-business-level-strategies-v2/" },
-  rivalry:       { title: "5.1 Competitive Rivalry",                                      url: BASE + "23-competitive-rivalry-v2/" },
-  corporate:     { title: "6.1 Corporate-Level Strategy",                                 url: BASE + "60-b/" },
-  international: { title: "7.1 International Strategy",                                    url: BASE + "71-international-strategy-v2/" },
-  cooperative:  { title: "8.1 Cooperative Strategy",                                      url: BASE + "81-cooperative-strategy-v2/" },
-  governance:   { title: "9.1 Corporate Governance & Governance Mechanisms",             url: BASE + "91-strategy-implementation-corporate-governance--governance-mechanisms/" },
-  leadership:   { title: "11.1 Strategic Leadership",                                     url: BASE + "111-strategic-leadership-v2/" },
+  andragogy:   { title: "5.1 Introduction to Andragogy",                                  url: BASE + "51-introduction-to-andragogy/" },
+  principles:  { title: "5.2 Knowles' Principles of Adult Learning",                      url: BASE + "52-knowles-principles-of-adult-learning/" },
+  adImpl:      { title: "5.3 Implications of Andragogy for Instructional Design",         url: BASE + "53-implications-of-andragogy-for-instructional-design/" },
+  adCritique:  { title: "5.4 Critiques and Limitations of Andragogy",                     url: BASE + "54-critiques-and-limitations-of-andragogy/" },
+  pbl:         { title: "6.2 Designing for Problem-Based Learning (PBL)",                 url: BASE + "62-designing-for-problem-based-learning-pbl/" },
+  experiential:{ title: "6.4 Designing for Experiential Learning Activities (Kolb)",      url: BASE + "64-designing-for-experiential--learning-activities/" },
+  gamification:{ title: "6.6 Applying Gamification Principles",                           url: BASE + "66-applying-gamification-principles/" },
+  idProcess:   { title: "7.2 The Instructional Design Process",                           url: BASE + "72-the-instructional-design-process-/" },
+  addie:       { title: "7.4 The ADDIE Model",                                            url: BASE + "74-the-addie-model-/" },
+  dickCarey:   { title: "7.5 The Dick and Carey Model",                                   url: BASE + "75-the-dick-and-carey-model/" },
+  evaluation:  { title: "7.8 Evaluation within ID Models",                                url: BASE + "78-evaluation-within-id-models/" },
+  edtech:      { title: "8.2 Types of Educational Technologies",                          url: BASE + "82-types-of-educational-technologies/" },
+  accessibility:{title: "8.3 Technology for Diverse Learners — Accessibility & Differentiation", url: BASE + "83-technology-for-diverse-learners-accessibility-and-differentiation/" },
+  selectTech:  { title: "8.5 Evaluating and Selecting Educational Technology",            url: BASE + "85-evaluating-and-selecting-educational-technology/" },
 };
 
 
@@ -138,230 +142,222 @@ const FORKING = {
 
     /* ---- ACT 1 — the fork ------------------------------------ */
     f1: {
-      eyebrow:  "The First Hundred Days",
-      question: "It is your first week as Chief Strategy Officer. Margins are sliding, growth has stalled, and the board is split between expansion and cost discipline. The whole firm is watching how you will set the strategy. Where do you put your first energy?",
+      eyebrow:  "Week One",
+      question: "It is your first week. The certificate sits at 38% completion and the next cohort enrols in twelve weeks. The whole team is watching how you will lead the redesign. Where do you put your first energy?",
       prompt:   "What is your first move?",
       options: [
         {
-          label: "Scan the environment",
-          summary: "Study the general and industry environment, map the five forces, and profile your competitors before committing to anything.",
-          reflection: "An outside-in opening. You read the demographic, economic, technological and global forces, then the industry's five forces and rivals, before acting. It costs early momentum, but every later move is grounded in a real read of where the market is going.",
-          lessons: [LESSON.external, LESSON.rivalry],
-          effects: { advantage: 6, profit: -4, growth: 2, confidence: 4 },
-          next: "f2_market",
+          label: "Start with the learners",
+          summary: "Run a learner analysis — interview the working adults and find out what they actually need.",
+          reflection: "An andragogy-led opening: you treat the adults as self-directed, experience-rich learners and gather ground truth before designing. It costs early momentum on the build, but it grounds every later decision in real learner needs and the 'WIIFM'.",
+          lessons: [LESSON.andragogy, LESSON.principles],
+          effects: { pedagogy: 2, engagement: 12, feasibility: -6, buyin: 6 },
+          next: "f2_learners",
         },
         {
-          label: "Audit the value chain",
-          summary: "Turn inward — analyse Meridian's core competencies and value chain to find what you do that rivals can't cheaply imitate.",
-          reflection: "An inside-out opening. Competitive advantage comes from competencies that are valuable, rare and costly to imitate, and the value chain shows which activities actually create value. The risk is studying yourself while the market moves around you.",
-          lessons: [LESSON.internal],
-          effects: { advantage: 12, profit: 0, growth: -4, confidence: 4 },
-          next: "f2_capability",
+          label: "Lock the scope",
+          summary: "Demand a fixed project plan, timeline and budget from the team in week one.",
+          reflection: "A delivery-first opening. The Director will like the certainty, but committing scope before you understand learners or the content's flaws risks hard-wiring the very problems that sank the old course.",
+          lessons: [LESSON.idProcess, LESSON.addie],
+          effects: { pedagogy: 0, engagement: -8, feasibility: 12, buyin: -2 },
+          next: "f2_scope",
         },
         {
-          label: "Map the profit pools",
-          summary: "Follow the money — map where profit actually pools across the value chain and which customer segments still pay.",
-          reflection: "A profit-pool opening. Rather than chasing revenue, you locate where money is genuinely made across the industry's value chain. It is a sharp diagnostic, though leading with profit before competitors or competencies can read as accountant-first strategy.",
-          lessons: [LESSON.inputs, LESSON.business],
-          effects: { advantage: 2, profit: 12, growth: -2, confidence: 2 },
-          next: "f2_profit",
+          label: "Fix the blueprint",
+          summary: "Commission a full instructional-design audit of objectives, activities and assessment.",
+          reflection: "You treat the inherited design flaws as the first priority. An alignment audit is the right instinct for a course with a mismatched exam — though auditing before you have relationships or learner data can read as ivory-tower process.",
+          lessons: [LESSON.idProcess, LESSON.dickCarey],
+          effects: { pedagogy: 12, engagement: 0, feasibility: -6, buyin: 6 },
+          next: "f2_design",
         },
       ],
     },
 
-    /* ---- ACT 2A — the EXTERNAL branch ------------------------ */
-    f2_market: {
-      eyebrow:  "The Competitive Scan",
-      question: "Your scan confirms the worst: Meridian competes in a fast-cycle market where advantages aren't shielded and imitation is rapid. Two low-cost entrants are undercutting you on price, and a substitute technology is emerging on the fringe.",
-      prompt:   "How do you read the rivalry?",
+    /* ---- ACT 2A — the ANDRAGOGY branch ----------------------- */
+    f2_learners: {
+      eyebrow:  "The Learner Analysis",
+      question: "Your interviews confirm the worst: the adults find the course irrelevant — generic theory disconnected from their jobs, and mandatory modules they resent. One learner says she 'already knows half of it and can't use the other half.'",
+      prompt:   "How do you redesign around them?",
       options: [
         {
-          label: "Differentiate on the uncopyable",
-          summary: "Compete on unique, valued features and brand loyalty rather than on price.",
-          reflection: "The right instinct in a fast-cycle market: differentiation builds brand loyalty that offsets price competition and reduces buyers' sensitivity to price. You compete where the low-cost entrants can't easily follow rather than racing them to the bottom.",
-          lessons: [LESSON.business, LESSON.rivalry],
-          effects: { advantage: 8, profit: 4, growth: 2, confidence: 4 },
+          label: "Anchor in relevance",
+          summary: "Rebuild each module around learners' real workplace problems; lead with the 'WIIFM' and draw on their experience.",
+          reflection: "Textbook Knowles: adults are relevance-driven, internally motivated, and bring a reservoir of experience. Organising the course around authentic tasks rather than subject matter is the evidence-based fix for disengagement.",
+          lessons: [LESSON.principles, LESSON.adImpl],
+          effects: { pedagogy: 8, engagement: 10, feasibility: -4, buyin: 6 },
           next: "f3",
         },
         {
-          label: "Match them on price",
-          summary: "Cut cost and meet the low-cost entrants head-to-head to defend market share.",
-          reflection: "Fighting standardised low-cost rivals on their own ground, without a genuine cost advantage, is how a differentiated firm bleeds out. In a fast-cycle market this is the price war you are least equipped to win.",
-          lessons: [LESSON.rivalry, LESSON.business],
-          effects: { advantage: -6, profit: -8, growth: 0, confidence: -2 },
-          next: "f3",
-        },
-        {
-          label: "Invest in the substitute",
-          summary: "Buy into the emerging substitute technology before rivals commit to it.",
-          reflection: "A bold, forward-looking move. Disruptive technologies destroy existing market values — getting ahead of the substitute can reset the game in your favour. The bet is expensive and unproven, and it stretches the firm while today's margins are already thin.",
-          lessons: [LESSON.external],
-          effects: { advantage: 6, profit: -6, growth: 8, confidence: 0 },
+          label: "Mandate completion",
+          summary: "Keep the content; add stricter deadlines and a hard completion-gate to force learners through.",
+          reflection: "Compelling completion by pressure treats the symptom, not the cause. Adults driven by external coercion rather than relevance disengage further — you would be deepening exactly the resentment the analysis uncovered.",
+          lessons: [LESSON.andragogy, LESSON.adCritique],
+          effects: { pedagogy: 4, engagement: -8, feasibility: 0, buyin: -4 },
           next: "f3",
         },
       ],
     },
 
-    /* ---- ACT 2B — the INTERNAL branch ------------------------ */
-    f2_capability: {
-      eyebrow:  "The Value-Chain Audit",
-      question: "Your audit finds a genuine core competency — a precision-calibration capability rivals consider too costly to imitate — buried inside a bloated operation that also does a great deal of low-value assembly badly.",
+    /* ---- ACT 2B — the FEASIBILITY branch --------------------- */
+    f2_scope: {
+      eyebrow:  "The Build Plan",
+      question: "Your team hands you a plan that ships on time and on budget — but a third of it is generic off-the-shelf e-learning: slides, a narrator, and a quiz bolted on at the end.",
+      prompt:   "How do you respond to the plan?",
+      options: [
+        {
+          label: "Reject & rebuild",
+          summary: "Refuse the shovelware; design authentic, problem-based modules even if it is slower.",
+          reflection: "You protect the learning at the cost of speed. PBL uses ill-structured, real-world problems with no single right answer — the opposite of content-dump e-learning, and far more likely to retain working adults.",
+          lessons: [LESSON.pbl, LESSON.experiential],
+          effects: { pedagogy: 10, engagement: 6, feasibility: -6, buyin: 6 },
+          next: "f3",
+        },
+        {
+          label: "Phased compromise",
+          summary: "Use off-the-shelf for foundational facts; build bespoke, applied modules for the core skills.",
+          reflection: "A defensible middle path. The andragogy critique itself concedes that adults sometimes need structured, didactic delivery for genuinely new foundational material — provided the applied core stays authentic. The risk is the 'temporary' shovelware quietly becomes the whole course.",
+          lessons: [LESSON.adCritique, LESSON.pbl],
+          effects: { pedagogy: -2, engagement: -2, feasibility: 6, buyin: 0 },
+          next: "f3",
+        },
+        {
+          label: "Ship it",
+          summary: "Accept the generic package as-is to show fast, on-budget delivery.",
+          reflection: "Banking a quick, cheap launch by shipping content-dump e-learning trades durable learning for an on-time headline. You would relaunch the same irrelevant course in a new wrapper — and the completion rate will tell the same story.",
+          lessons: [LESSON.addie, LESSON.evaluation],
+          effects: { pedagogy: -12, engagement: -10, feasibility: 12, buyin: -6 },
+          next: "f3",
+        },
+      ],
+    },
+
+    /* ---- ACT 2C — the ID-MODEL branch ------------------------ */
+    f2_design: {
+      eyebrow:  "The Alignment Audit",
+      question: "The audit lands early and ugly: the stated objectives, the teaching activities, and the final exam don't line up. Learners are being assessed on skills the course never actually teaches.",
       prompt:   "What do you do with the finding?",
       options: [
         {
-          label: "Leverage the competency",
-          summary: "Concentrate investment on the calibration capability and build the whole strategy around it.",
-          reflection: "Textbook resource-based strategy: firms win when core competencies are acquired, bundled and leveraged. Organising the strategy around a valuable, rare, costly-to-imitate capability is exactly how durable advantage is built.",
-          lessons: [LESSON.internal],
-          effects: { advantage: 12, profit: 2, growth: 2, confidence: 6 },
+          label: "Realign systematically",
+          summary: "Use a systems model (Dick & Carey) to map objectives → instruction → assessment end to end.",
+          reflection: "A systems approach treats instruction as interconnected components and forces objective–activity–assessment alignment. It is disruptive mid-project, but it fixes the root defect rather than the surface of it.",
+          lessons: [LESSON.dickCarey, LESSON.idProcess],
+          effects: { pedagogy: 12, engagement: 0, feasibility: -6, buyin: 8 },
           next: "f3",
         },
         {
-          label: "Outsource the weak links",
-          summary: "Outsource the low-value assembly you do poorly and focus on the activities that create value.",
-          reflection: "Sound value-chain logic: outsource a value-creating activity when an external supplier performs it better and you lack the resources to do it well, freeing capital for what you do best. Manage the dependency and you sharpen the firm considerably.",
-          lessons: [LESSON.internal],
-          effects: { advantage: 6, profit: 8, growth: 0, confidence: 2 },
+          label: "Patch the exam",
+          summary: "Quietly rewrite the final assessment to match what is currently taught, and leave the rest.",
+          reflection: "Re-aligning the exam to the content removes the most glaring unfairness, but it locks in whatever the objectives happen to be — including the weak ones. A cosmetic fix that leaves the underlying design unexamined.",
+          lessons: [LESSON.evaluation],
+          effects: { pedagogy: -2, engagement: 0, feasibility: 2, buyin: -2 },
           next: "f3",
         },
         {
-          label: "Protect every job",
-          summary: "Keep the entire chain in-house to avoid disruption and keep the division head onside.",
-          reflection: "Protecting the whole operation to avoid internal pain preserves the very low-value activities that drag on margins. You keep the peace today and carry the bloat that is eroding your competitiveness into every future decision.",
-          lessons: [LESSON.internal],
-          effects: { advantage: -4, profit: -8, growth: -2, confidence: -2 },
+          label: "Note it for launch",
+          summary: "Log the misalignment as a known issue and press on to hit the launch date.",
+          reflection: "Shipping a course you know assesses untaught material is the gravest option here. It converts a fixable design flaw into a fairness problem that lands on learners and, eventually, on your own credibility.",
+          lessons: [LESSON.idProcess],
+          effects: { pedagogy: -10, engagement: 0, feasibility: 4, buyin: -6 },
           next: "f3",
         },
       ],
     },
 
-    /* ---- ACT 2C — the PROFIT-POOL branch --------------------- */
-    f2_profit: {
-      eyebrow:  "The Profit Pool",
-      question: "Your profit-pool map is stark: most of Meridian's profit comes from a narrow band of high-end, service-heavy customers — while the volume product line the firm is proud of barely breaks even.",
-      prompt:   "How do you act on the map?",
-      options: [
-        {
-          label: "Focus on the profit segment",
-          summary: "Pursue a focused strategy — serve the high-value niche deeply and decline the unprofitable volume game.",
-          reflection: "A focused strategy tailored to a specific, profitable buyer group is the disciplined read of the pool. Like the firms that monitor profitability closely and decline to play in low-profit segments, you concentrate where value actually accrues.",
-          lessons: [LESSON.business],
-          effects: { advantage: 6, profit: 10, growth: -4, confidence: 4 },
-          next: "f3",
-        },
-        {
-          label: "Build barriers around the pool",
-          summary: "Defend the profitable segment with cost advantages and entry barriers to keep rivals out.",
-          reflection: "Even in a stagnant market, profit pools persist for firms that build cost advantages and entry barriers to protect segment profitability. A defensive but durable play that secures the money you already make.",
-          lessons: [LESSON.inputs, LESSON.business],
-          effects: { advantage: 8, profit: 6, growth: 0, confidence: 2 },
-          next: "f3",
-        },
-        {
-          label: "Chase volume anyway",
-          summary: "Keep pushing the low-margin volume line for the revenue headline.",
-          reflection: "Optimising for a revenue headline over profit is exactly the error the profit-pool lens exists to prevent. You pour effort into a segment that barely breaks even and starve the one that actually pays.",
-          lessons: [LESSON.business],
-          effects: { advantage: -6, profit: -10, growth: 4, confidence: -4 },
-          next: "f3",
-        },
-      ],
-    },
-
-    /* ---- ACT 3 — convergence: the ethics of competitor intel - */
+    /* ---- ACT 3 — convergence: the pilot & the accessibility flag */
     f3: {
-      eyebrow:  "The Intelligence Dilemma",
-      question: "Whatever path you took, you reach the same crossroads. A junior analyst proudly hands you a rival's confidential product roadmap — obtained, you realise, by a contact who photographed it after overhearing a meeting at a shared supplier. It would tell you exactly where the market is going. No one else knows she has it.",
-      prompt:   "How do you handle the intelligence?",
+      eyebrow:  "The Pilot",
+      question: "Whatever path you took, you run a small pilot. A learning-support specialist comes to you privately: the new gamified, media-rich design excites most learners — but it locks out anyone using a screen reader or a low-bandwidth device. The launch team wants to ship regardless. She has raised it with no one else.",
+      prompt:   "How do you handle the finding?",
       options: [
         {
-          label: "Refuse and compete clean",
-          summary: "Destroy it and rebuild your competitor analysis from legal, ethical sources only.",
-          reflection: "Correct. Ethical competitor intelligence is gathered from legal sources — public filings, trade-show exhibits, published analysis — not eavesdropping or stolen documents. You protect the firm's governance and your own integrity, and lose nothing you couldn't earn cleanly.",
-          lessons: [LESSON.external, LESSON.governance],
-          effects: { advantage: 8, profit: 0, growth: 2, confidence: 10 },
+          label: "Fix it properly",
+          summary: "Treat the formative-evaluation finding as stop-ship: rebuild for accessibility and differentiation before launch.",
+          reflection: "Correct. Formative evaluation exists precisely to catch this before launch, and accessible design (keyboard navigation, screen-reader support, adjustable display, low-bandwidth fallback) removes barriers for every learner. You treat inclusion as core, not optional.",
+          lessons: [LESSON.accessibility, LESSON.evaluation],
+          effects: { pedagogy: 12, engagement: 6, feasibility: 0, buyin: 10 },
           next: "f4_high",
         },
         {
-          label: "Read it, then bury it",
-          summary: "Glance at it for direction, but act only on what you could have learned legally.",
-          reflection: "Half-measures in an ethics decision are still a decision. Once you've read a stolen roadmap you cannot un-know it, and 'I only used the legal parts' is a line you'll struggle to draw — or to defend if it ever surfaces.",
-          lessons: [LESSON.external],
-          effects: { advantage: 2, profit: 0, growth: 0, confidence: -4 },
+          label: "Patch the worst bits",
+          summary: "Add captions and a text fallback yourself, informally, without a real accessibility review.",
+          reflection: "Acting on the flag beats ignoring it, but patching it personally with no proper review leaves real barriers in place and no record that they were checked. Good intentions, weak process.",
+          lessons: [LESSON.accessibility],
+          effects: { pedagogy: -2, engagement: -2, feasibility: 0, buyin: -2 },
           next: "f4_high",
         },
         {
-          label: "Exploit it fully",
-          summary: "Use the roadmap to pre-empt the rival's launch and seize the window.",
-          reflection: "Acting on intelligence obtained through eavesdropping and trespass is precisely the illegal, unethical practice strategy ethics warns against. The short-term edge sits on a governance time-bomb that can detonate the moment the source is traced.",
-          lessons: [LESSON.external, LESSON.governance],
-          effects: { advantage: 6, profit: 6, growth: 4, confidence: -12 },
+          label: "Launch and iterate",
+          summary: "Ship now; log accessibility as a post-launch fix and let the support team field complaints.",
+          reflection: "Shipping a course you know excludes disabled and low-bandwidth learners, and pushing the problem onto support, is the classic evaluation failure: you ignore the formative signal and convert a design fix into a live exclusion.",
+          lessons: [LESSON.accessibility, LESSON.evaluation],
+          effects: { pedagogy: -10, engagement: -6, feasibility: 0, buyin: -8 },
           next: "f4_low",
         },
       ],
     },
 
-    /* ---- ACT 4 — the growth mandate, arriving from strength -- */
+    /* ---- ACT 4 — the budget squeeze, arriving from strength -- */
     f4_high: {
-      eyebrow:  "The Growth Mandate",
-      question: "Week ninety. Your position is strong and the board wants growth. The expansion camp is pushing hard: enter three new countries at once and acquire an unrelated business to diversify earnings. The cost-discipline camp wants you to stay home.",
-      prompt:   "What is your recommendation to the board?",
+      eyebrow:  "Week Eighty",
+      question: "The pilot is a hit and the Programme Director wants the final cost saving. She proposes scrapping the experiential simulation and the learning-analytics dashboard to get there.",
+      prompt:   "What is your recommendation to the Director?",
       options: [
         {
-          label: "Grow on the core",
-          summary: "Related diversification plus a focused move into one region whose location advantages fit your competency.",
-          reflection: "Related diversification builds on existing resources and competencies for economies of scope, and a location-advantage international move extends the product's life cycle without over-reaching. Growth that compounds your advantage rather than diluting it.",
-          lessons: [LESSON.corporate, LESSON.international],
-          effects: { advantage: 8, profit: 2, growth: 6, confidence: 8 },
-          next: "end_architect",
+          label: "Defend the core",
+          summary: "Make the experiential-learning and evaluation case; find the saving elsewhere.",
+          reflection: "Defending the simulation protects the Concrete-Experience and Active-Experimentation stages of Kolb's cycle, and keeping the analytics protects your ability to evaluate and improve. You can't sustain a course you can neither apply nor measure.",
+          lessons: [LESSON.experiential, LESSON.evaluation],
+          effects: { pedagogy: 8, engagement: 2, feasibility: -4, buyin: 8 },
+          next: "end_steward",
         },
         {
-          label: "Expand carefully abroad",
-          summary: "A single multidomestic entry into one well-understood region; defer the acquisition.",
-          reflection: "A defensible, measured step. A multidomestic entry tailored to a familiar market accesses new demand while limiting the liability of foreignness. Deferring the acquisition keeps risk contained — at the cost of the bolder upside the board hoped for.",
-          lessons: [LESSON.international],
-          effects: { advantage: 2, profit: 2, growth: 4, confidence: 2 },
+          label: "Scale, don't scrap",
+          summary: "Keep the core simulation but pause the analytics dashboard for a year.",
+          reflection: "A defensible compromise that preserves the experiential heart of the course while deferring the measurement layer. It buys budget without gutting the learning — provided the 'pause' on evaluation does not become permanent blindness.",
+          lessons: [LESSON.experiential],
+          effects: { pedagogy: 2, engagement: 0, feasibility: 4, buyin: 0 },
           next: "end_balanced",
         },
         {
-          label: "Diversify into anything that grows",
-          summary: "Make the unrelated acquisition and enter all three countries at once.",
-          reflection: "Unrelated diversification creates value only through financial economies that rivals easily copy, and simultaneous entry into three markets multiplies the liability of foreignness. Stretching this far, this fast, trades your hard-won advantage for a growth headline.",
-          lessons: [LESSON.corporate, LESSON.international],
-          effects: { advantage: -8, profit: -6, growth: 12, confidence: -8 },
-          next: "end_overreach",
+          label: "Cut it",
+          summary: "Scrap both the simulation and the analytics to bank the saving and close on budget.",
+          reflection: "Treating the experiential core and the evaluation loop as switch-off-able spend hollows the course back into the content-dump it started as. After everything you built, this quietly undoes it.",
+          lessons: [LESSON.experiential, LESSON.evaluation],
+          effects: { pedagogy: -12, engagement: -2, feasibility: 10, buyin: -6 },
+          next: "end_traded",
         },
       ],
     },
 
-    /* ---- ACT 4 — the growth mandate, arriving from weakness -- */
+    /* ---- ACT 4 — the budget squeeze, arriving from weakness -- */
     f4_low: {
-      eyebrow:  "The Growth Mandate",
-      question: "Week ninety. The questionable intelligence has leaked, and a governance review is now circulating. The board, rattled, still wants growth to change the story — and the expansion camp is using your weakened standing to push an aggressive acquisition spree.",
-      prompt:   "What is your recommendation to the board?",
+      eyebrow:  "Week Eighty",
+      question: "The accessibility complaints from the pilot are now circulating among faculty. The Director, uneasy, still wants her final saving — and is pushing to scrap the experiential simulation and the analytics to find it.",
+      prompt:   "What is your recommendation to the Director?",
       options: [
         {
-          label: "Grow on the core",
-          summary: "Argue for disciplined, related growth despite the credibility you have lost.",
-          reflection: "The right call on substance — related diversification and a focused regional entry — but made from a weakened position. With board confidence drained by the intelligence affair, principled discipline reads as caution. Strategic capital has to be banked before you need to spend it.",
-          lessons: [LESSON.corporate, LESSON.international],
-          effects: { advantage: 6, profit: 2, growth: 4, confidence: 4 },
+          label: "Defend the core",
+          summary: "Try to hold the line on the simulation and evaluation despite the credibility you have lost.",
+          reflection: "The right call on substance — but made from a weakened position. With buy-in already drained by the accessibility mishandling, principled stands read as defensiveness. Design capital has to be banked before you need to spend it.",
+          lessons: [LESSON.experiential, LESSON.evaluation],
+          effects: { pedagogy: 6, engagement: 2, feasibility: -4, buyin: 4 },
           next: "end_recovered",
         },
         {
-          label: "A cautious single step",
-          summary: "Offer one modest, well-fitting market entry to steady the board.",
-          reflection: "A survival compromise. One careful step keeps you in the room, but offering minimal growth while a governance cloud hangs over you rarely buys lasting confidence — it just defers the reckoning.",
-          lessons: [LESSON.international],
-          effects: { advantage: 0, profit: 0, growth: 4, confidence: -2 },
+          label: "Scale, don't scrap",
+          summary: "Offer a partial cut to keep the Director onside while you steady the project.",
+          reflection: "A survival compromise. It keeps you in the room, but trading the evaluation layer for political cover while accessibility complaints spread rarely buys lasting stability.",
+          lessons: [LESSON.experiential, LESSON.idProcess],
+          effects: { pedagogy: -2, engagement: -2, feasibility: 4, buyin: -2 },
           next: "end_fragile",
         },
         {
-          label: "Bet big to change the story",
-          summary: "Back the aggressive unrelated acquisition spree to rebuild momentum fast.",
-          reflection: "Stacking an unrelated diversification gamble on top of a governance scandal is risk piled on risk. You chase a growth headline to bury the ethics story, and hand the board two crises where it had one.",
-          lessons: [LESSON.corporate, LESSON.governance],
-          effects: { advantage: -10, profit: -8, growth: 12, confidence: -10 },
+          label: "Cut it",
+          summary: "Give the Director everything she wants to rebuild your own standing.",
+          reflection: "Abandoning the experiential core and the evaluation loop on top of an accessibility failure stacks risk on risk. You hit the budget while quietly dismantling the things that made the redesign worth doing.",
+          lessons: [LESSON.experiential, LESSON.evaluation],
+          effects: { pedagogy: -12, engagement: -6, feasibility: 10, buyin: -8 },
           next: "end_scandal",
         },
       ],
@@ -384,158 +380,158 @@ const PRESSURE = {
   nodes: {
 
     p1: {
-      eyebrow:  "The First Hundred Days",
-      question: "It is your first week as Chief Strategy Officer. How you open will set the dials that decide which doors stay open later.",
+      eyebrow:  "Week One",
+      question: "It is your first week. How you open will set the dials that decide which doors stay open later.",
       prompt:   "What is your first move?",
       options: [
         {
-          label: "Scan the environment",
-          summary: "An outside-in opening — general and industry analysis, the five forces, and competitor profiling before committing.",
-          reflection: "Builds Advantage and Board Confidence with a grounded read of the market. A measured, credible start.",
-          lessons: [LESSON.external, LESSON.rivalry],
-          effects: { advantage: 6, profit: -4, growth: 2, confidence: 4 },
+          label: "Start with the learners",
+          summary: "An andragogy-led opening — learner interviews and needs analysis before any build.",
+          reflection: "Builds Engagement and Buy-in early. Those reserves are exactly what later options will demand.",
+          lessons: [LESSON.andragogy, LESSON.principles],
+          effects: { pedagogy: 2, engagement: 12, feasibility: -6, buyin: 6 },
           next: "p2",
         },
         {
-          label: "Map the profit pools",
-          summary: "A profit-first opening — locate where money actually pools across the value chain before acting.",
-          reflection: "Banks Profitability hard and early. That reserve is exactly what later options requiring capital will demand.",
-          lessons: [LESSON.inputs, LESSON.business],
-          effects: { advantage: 2, profit: 12, growth: -2, confidence: 2 },
+          label: "Lock the scope",
+          summary: "A delivery-first opening — fixed plan, timeline and budget demanded in week one.",
+          reflection: "Buys Feasibility at the cost of Engagement and Buy-in. It can unlock options that need money, but starves the ones that need goodwill.",
+          lessons: [LESSON.idProcess, LESSON.addie],
+          effects: { pedagogy: 0, engagement: -8, feasibility: 12, buyin: -2 },
           next: "p2",
         },
         {
-          label: "Audit the value chain",
-          summary: "An inside-out opening — find the core competency rivals can't cheaply imitate.",
-          reflection: "Banks Competitive Advantage and Board Confidence — the currency the board's final growth decision will require.",
-          lessons: [LESSON.internal],
-          effects: { advantage: 12, profit: 0, growth: -4, confidence: 6 },
+          label: "Fix the blueprint",
+          summary: "A design-first opening — a full alignment audit commissioned at once.",
+          reflection: "Banks Pedagogy and Buy-in early — the currency the Director's later decisions will require.",
+          lessons: [LESSON.idProcess, LESSON.dickCarey],
+          effects: { pedagogy: 12, engagement: 0, feasibility: -6, buyin: 6 },
           next: "p2",
         },
       ],
     },
 
     p2: {
-      eyebrow:  "Competitive Rivalry",
-      question: "Low-cost entrants are copying your products within months and undercutting you on price. How you respond depends partly on what you can afford.",
-      prompt:   "How do you compete?",
+      eyebrow:  "Relevance",
+      question: "Learners find the course irrelevant — generic theory with no link to their jobs. How you respond depends partly on what you can afford.",
+      prompt:   "How do you rebuild for relevance?",
       options: [
         {
-          label: "Differentiate on the uncopyable",
-          summary: "Compete on unique, valued features and brand loyalty rather than price.",
-          reflection: "The evidence-based move in a fast-cycle market: differentiation builds loyalty that offsets price competition where rivals can't follow.",
-          lessons: [LESSON.business, LESSON.rivalry],
-          effects: { advantage: 8, profit: 4, growth: 2, confidence: 4 },
+          label: "Anchor in relevance",
+          summary: "Rebuild around real workplace problems; lead with the 'WIIFM' and learners' experience.",
+          reflection: "The evidence-based fix: adults are relevance-driven and internally motivated — organise around authentic tasks, not subject matter.",
+          lessons: [LESSON.principles, LESSON.adImpl],
+          effects: { pedagogy: 8, engagement: 10, feasibility: -4, buyin: 6 },
           next: "p3",
         },
         {
-          label: "Match them on price",
-          summary: "Cut cost and fight the low-cost entrants head-to-head on their own ground.",
-          reflection: "Fighting standardised rivals without a real cost advantage bleeds a differentiated firm — the price war you're least built to win.",
-          lessons: [LESSON.rivalry, LESSON.business],
-          effects: { advantage: -6, profit: -8, growth: 0, confidence: -2 },
+          label: "Mandate completion",
+          summary: "Keep the content; add stricter deadlines and a hard completion-gate.",
+          reflection: "Coerced completion drives adults further from the material — it treats the symptom and worsens the cause.",
+          lessons: [LESSON.andragogy, LESSON.adCritique],
+          effects: { pedagogy: 4, engagement: -8, feasibility: 0, buyin: -4 },
           next: "p3",
         },
         {
-          label: "Acquire the substitute technology",
-          summary: "Buy into the emerging substitute technology before rivals commit, resetting the game.",
-          reflection: "A disruptive substitute can reset the market in your favour — but you can only fund the bet if Profitability is healthy. A door money opens.",
-          lessons: [LESSON.external, LESSON.corporate],
-          effects: { advantage: 8, profit: -8, growth: 10, confidence: 4 },
-          gate: (m) => m.profit >= 55,
-          gateHint: "Locked — requires Profitability \u2265 55",
+          label: "Bring in an external learning studio",
+          summary: "Engage a specialist studio to rebuild the modules as authentic, problem-based learning.",
+          reflection: "The gold-standard rebuild — but you can only fund it if Delivery Feasibility is healthy. A door money opens.",
+          lessons: [LESSON.pbl, LESSON.experiential],
+          effects: { pedagogy: 10, engagement: 8, feasibility: -8, buyin: 6 },
+          gate: (m) => m.feasibility >= 55,
+          gateHint: "Locked — requires Delivery Feasibility \u2265 55",
           next: "p3",
         },
       ],
     },
 
     p3: {
-      eyebrow:  "The Capability Question",
-      question: "A value-chain audit finds a genuine core competency buried inside a bloated operation that does a lot of low-value work badly. Your options now depend on the standing you've banked.",
-      prompt:   "How do you restructure?",
+      eyebrow:  "The Alignment Problem",
+      question: "An audit shows the objectives, activities and final exam don't line up — learners are tested on untaught skills. Your options now depend on the credibility you've banked.",
+      prompt:   "How do you fix the design?",
       options: [
         {
-          label: "Full value-chain restructure",
-          summary: "Reconfigure the whole chain around the core competency — outsource the weak links, reinvest in the strong ones.",
-          reflection: "The most powerful route — but a disruptive, ground-up restructure only survives if the board and the division head already trust you. A door buy-in opens.",
-          lessons: [LESSON.internal, LESSON.leadership],
-          effects: { advantage: 12, profit: 6, growth: 0, confidence: 8 },
-          gate: (m) => m.confidence >= 55,
-          gateHint: "Locked — requires Board Confidence \u2265 55",
+          label: "Full systems redesign",
+          summary: "Run a Dick & Carey systems redesign, mapping objectives → instruction → assessment end to end.",
+          reflection: "The most rigorous route — but the SME and Director only back a disruptive, ground-up redesign if they already trust you. A door buy-in opens.",
+          lessons: [LESSON.dickCarey, LESSON.idProcess],
+          effects: { pedagogy: 12, engagement: -2, feasibility: 0, buyin: 8 },
+          gate: (m) => m.buyin >= 55,
+          gateHint: "Locked — requires Stakeholder Buy-in \u2265 55",
           next: "p4",
         },
         {
-          label: "Commission an external strategy review",
-          summary: "Bring in independent consultants to map the value chain and competencies at arm's length.",
-          reflection: "Rigorous and independent, if costly. Always available — strategic clarity you can buy when you can't yet borrow trust.",
-          lessons: [LESSON.internal, LESSON.inputs],
-          effects: { advantage: 10, profit: -6, growth: 0, confidence: 4 },
+          label: "Commission an external ID review",
+          summary: "Hire an independent instructional designer to re-map the alignment at arm's length.",
+          reflection: "Rigorous and independent, if costly. Always available — design integrity you can buy when you can't yet borrow trust.",
+          lessons: [LESSON.idProcess, LESSON.evaluation],
+          effects: { pedagogy: 10, engagement: 0, feasibility: -6, buyin: 4 },
           next: "p4",
         },
         {
-          label: "Patch the obvious waste",
-          summary: "Trim the most visible inefficiencies and leave the structure otherwise intact.",
-          reflection: "Removes a little drag but leaves the bloated low-value activities in place — a cosmetic fix that never frees the competency to lead.",
-          lessons: [LESSON.internal],
-          effects: { advantage: -8, profit: 2, growth: 0, confidence: -6 },
+          label: "Patch the exam",
+          summary: "Quietly rewrite the assessment to match what is currently taught, and leave the rest.",
+          reflection: "Removes the worst unfairness but locks in weak objectives and leaves the underlying design unexamined.",
+          lessons: [LESSON.evaluation],
+          effects: { pedagogy: -8, engagement: 0, feasibility: 2, buyin: -6 },
           next: "p4",
         },
       ],
     },
 
     p4: {
-      eyebrow:  "The Intelligence Dilemma",
-      question: "A junior analyst hands you a rival's confidential roadmap, obtained by a contact who photographed it at a shared supplier. It would tell you exactly where the market is going. The expansion camp wants you to use it.",
-      prompt:   "How do you handle the intelligence?",
+      eyebrow:  "The Accessibility Flag",
+      question: "A learning-support specialist brings you a pilot finding: the gamified, media-rich design locks out screen-reader and low-bandwidth learners. The launch team wants to ship regardless.",
+      prompt:   "How do you handle the finding?",
       options: [
         {
-          label: "Refuse and compete clean",
-          summary: "Destroy it; rebuild competitor analysis from legal, ethical sources only.",
-          reflection: "Upholds ethical intelligence and sound governance — compete on public filings and published analysis, not stolen documents.",
-          lessons: [LESSON.external, LESSON.governance],
-          effects: { advantage: 8, profit: 0, growth: 2, confidence: 10 },
+          label: "Fix it properly",
+          summary: "Stop-ship: rebuild for accessibility and differentiation before launch.",
+          reflection: "Upholds inclusive design and the purpose of formative evaluation — catch and fix barriers before launch, for every learner.",
+          lessons: [LESSON.accessibility, LESSON.evaluation],
+          effects: { pedagogy: 12, engagement: 6, feasibility: 0, buyin: 10 },
           next: "p5",
         },
         {
-          label: "Exploit it fully",
-          summary: "Use the roadmap to pre-empt the rival's launch and seize the window.",
-          reflection: "Acting on intelligence from eavesdropping and trespass is the illegal practice ethics warns against — a short edge on a governance time-bomb.",
-          lessons: [LESSON.external, LESSON.governance],
-          effects: { advantage: 6, profit: 6, growth: 4, confidence: -12 },
+          label: "Launch and iterate",
+          summary: "Ship now; log accessibility as a post-launch fix for the support team.",
+          reflection: "Ignores the formative signal and converts a design fix into a live exclusion — the classic evaluation failure.",
+          lessons: [LESSON.accessibility, LESSON.evaluation],
+          effects: { pedagogy: -10, engagement: -6, feasibility: 0, buyin: -8 },
           next: "p5",
         },
       ],
     },
 
     p5: {
-      eyebrow:  "The Growth Mandate",
-      question: "Week ninety. The board wants growth and the expansion camp is pushing an unrelated acquisition and entry into three countries at once. Whether you can hold the disciplined line depends on the advantage you've built.",
+      eyebrow:  "The Budget Squeeze",
+      question: "Week eighty. The Director wants her final saving and proposes scrapping the experiential simulation and the analytics to find it. Whether you can hold the line depends on the design record behind you.",
       prompt:   "What is your recommendation?",
       options: [
         {
-          label: "Grow on the core",
-          summary: "Related diversification plus a focused, location-advantage entry into one fitting region.",
-          reflection: "You can only win this argument if your competitive record gives you the standing to make it. A door advantage opens.",
-          lessons: [LESSON.corporate, LESSON.international],
-          effects: { advantage: 8, profit: 2, growth: 6, confidence: 8 },
-          gate: (m) => m.advantage >= 60,
-          gateHint: "Locked — requires Competitive Advantage \u2265 60",
+          label: "Defend the core",
+          summary: "Make the experiential-learning and evaluation case; find the saving elsewhere.",
+          reflection: "You can only win this argument if your pedagogical record gives you the standing to make it. A door pedagogy opens.",
+          lessons: [LESSON.experiential, LESSON.evaluation],
+          effects: { pedagogy: 8, engagement: 2, feasibility: -4, buyin: 8 },
+          gate: (m) => m.pedagogy >= 60,
+          gateHint: "Locked — requires Pedagogical Integrity \u2265 60",
           next: "RESOLVE",
         },
         {
-          label: "A cautious single step",
-          summary: "One modest multidomestic entry into a well-understood region; defer the acquisition.",
-          reflection: "Measured growth that limits the liability of foreignness — workable, if the caution doesn't read as having no plan.",
-          lessons: [LESSON.international],
-          effects: { advantage: 2, profit: 2, growth: 4, confidence: 2 },
+          label: "Scale, don't scrap",
+          summary: "Keep the core simulation but pause the analytics dashboard for a year.",
+          reflection: "Preserves the experiential heart while deferring the measurement layer — workable, if the pause doesn't become blindness.",
+          lessons: [LESSON.experiential],
+          effects: { pedagogy: 2, engagement: 0, feasibility: 4, buyin: 0 },
           next: "RESOLVE",
         },
         {
-          label: "Diversify into anything that grows",
-          summary: "Make the unrelated acquisition and enter all three countries at once.",
-          reflection: "Unrelated diversification and simultaneous entry multiply risk and the liability of foreignness — a growth headline bought with your advantage.",
-          lessons: [LESSON.corporate, LESSON.international],
-          effects: { advantage: -8, profit: -6, growth: 12, confidence: -8 },
+          label: "Cut it",
+          summary: "Scrap both to bank the saving and close on budget.",
+          reflection: "Treats the experiential core and evaluation as discretionary spend — a one-off saving against the course's durable value.",
+          lessons: [LESSON.experiential, LESSON.evaluation],
+          effects: { pedagogy: -12, engagement: -2, feasibility: 10, buyin: -6 },
           next: "RESOLVE",
         },
       ],
@@ -551,35 +547,35 @@ const PRESSURE = {
    ‣ PRESSURE endings: chosen from the final meter profile.
    ────────────────────────────────────────────────────────────── */
 const FORKING_ENDINGS = {
-  end_architect: {
+  end_steward: {
     tier: "good",
-    title: "The Strategy Architect",
-    body: "Meridian turns the corner. A clear-eyed read of the environment, a strategy built on a real core competency, differentiation the low-cost rivals can't follow, and disciplined related growth combine into durable advantage. The board sees a strategist who can pair sound analysis with nerve under pressure — and your hundred-day plan becomes the blueprint for the next decade.",
+    title: "Trusted Designer",
+    body: "The certificate turns the corner. A relevance-led, problem-based redesign re-engaged the adults, the accessibility rebuild held, and a defended experiential core with live analytics positions the course to keep improving. Beacon's Director sees a designer who can pair sound pedagogy with delivery — and the redesign becomes the template for the whole programme.",
   },
   end_balanced: {
     tier: "moderate",
-    title: "Steady Course",
-    body: "You set a defensible strategy without breaking anything that matters. Deferring the bigger international move leaves some upside on the table, but the competitive position is sound and the board trusts your judgement. A solid, well-reasoned start to the mandate.",
+    title: "Steady Build",
+    body: "You delivered the redesign without breaking the things that matter. Pausing the analytics leaves a small blind spot in your evaluation story, but the learning design is intact and the Director trusts your judgement. A solid, defensible term's work.",
   },
-  end_overreach: {
+  end_traded: {
     tier: "poor",
-    title: "Stretched Too Thin",
-    body: "You ran a clean diagnosis and then over-reached at the finish, betting on unrelated diversification and three simultaneous market entries. The growth headline landed; the liability of foreignness, the thin synergies, and the diluted advantage did not show up this quarter. They will show up in next year's returns.",
+    title: "Shipped, Then Hollowed Out",
+    body: "You ran a clean redesign and then traded its heart away at the finish, scrapping the simulation and the analytics for a one-off saving. The launch landed on budget; the slow slide back toward a content-dump course you created did not show up this term. It will show up in next year's completion rate.",
   },
   end_recovered: {
     tier: "moderate",
     title: "Partial Recovery",
-    body: "The intelligence affair cost you, and you spent the rest of the mandate paying it back. Arguing for disciplined, related growth from a weakened position was the right instinct, but principled stands land softly when board confidence is already drained. You held the strategy together — just.",
+    body: "Mishandling the accessibility flag cost you, and you spent the rest of the project paying it back. Defending the experiential core from a weakened position was the right instinct, but principled stands land softly when buy-in is already drained. You held the redesign together — just.",
   },
   end_fragile: {
     tier: "poor",
-    title: "Fragile Standing",
-    body: "A mishandled intelligence call and a string of survival compromises leave the strategy outwardly intact and inwardly brittle. You are still in the room, still hitting most milestones — but the mandate runs on borrowed confidence, and the next governance review will test how little is left.",
+    title: "Fragile Launch",
+    body: "A mishandled accessibility flag and a string of survival compromises leave the course outwardly launched and inwardly brittle. You are still in the room, still hitting most milestones — but the redesign runs on borrowed goodwill, and the first cohort's feedback will test how little is left.",
   },
   end_scandal: {
     tier: "catastrophic",
-    title: "Governance Failure",
-    body: "An exploited stolen roadmap, a price war you couldn't win, and a desperate unrelated-diversification gamble combine into a perfect storm: the ethics breach surfaces publicly, the acquisitions sour, and board confidence evaporates. The strategy is repudiated and Meridian moves to replace its Chief Strategy Officer.",
+    title: "Failed Pilot, Recalled",
+    body: "An ignored accessibility flag, a misaligned assessment, and a gutted experiential core combine into a perfect storm: exclusion complaints surface publicly, the pilot cohort's completion collapses, and faculty confidence evaporates. The launch is pulled and Beacon moves to replace its Lead Learning Designer.",
   },
 };
 
@@ -590,26 +586,26 @@ const METER_ENDINGS = [
   {
     tier: "good",
     test: (m, avg, min) => avg >= 66 && min >= 45,
-    title: "The Strategy Architect",
-    body: "Every dial finished in healthy territory. You unlocked the hardest doors — the substitute-technology bet, the full value-chain restructure, the principled stand for disciplined growth — because your earlier work earned the standing to walk through them. Meridian relaunches as a focused, differentiated, well-governed firm.",
+    title: "Trusted Designer",
+    body: "Every dial finished in healthy territory. You unlocked the hardest doors — the external studio rebuild, the full systems redesign, the defended experiential core — because your earlier work earned the standing to walk through them. The certificate relaunches as a relevant, rigorous, inclusive course.",
   },
   {
     tier: "moderate",
     test: (m, avg, min) => avg >= 54,
     title: "Mixed Signals",
-    body: "A creditable mandate with one soft flank. You kept most of the strategy healthy, but the dimension you under-fed quietly closed a door or two you would have wanted open at the end. The strategy holds; the lesson is that strategic capital has to be banked before you need to spend it.",
+    body: "A creditable term with one soft flank. You kept most of the design healthy, but the dimension you under-fed quietly closed a door or two you would have wanted open at the end. The course relaunches; the lesson is that design capital has to be banked before you need to spend it.",
   },
   {
     tier: "poor",
     test: (m, avg, min) => avg >= 40,
     title: "Running on Empty",
-    body: "You hit some marks but drained the reserves that unlock the strong options. By the final act the doors that mattered — the value-chain restructure, the principled stand on growth — were locked, and you were left choosing among the weaker routes. The strategy ships, diminished.",
+    body: "You hit some marks but drained the reserves that unlock the strong options. By the final act the doors that mattered — the systems redesign, the principled stand for the experiential core — were locked, and you were left choosing among the weaker routes. The course launches, diminished.",
   },
   {
     tier: "catastrophic",
     test: () => true,
     title: "Systemic Failure",
-    body: "The dials collapsed together. Starved of advantage, profit, and board confidence, every late door was locked and every remaining choice made things worse. The mandate ends facing the very problems the diagnosis warned about — eroding margins, copycat rivals, and a board that has lost faith.",
+    body: "The dials collapsed together. Starved of engagement, pedagogy, and buy-in, every late door was locked and every remaining choice made things worse. The redesign ends facing the very problems the diagnosis warned about — irrelevance, misalignment, and exclusion — now relaunched and public.",
   },
 ];
 
@@ -646,8 +642,8 @@ const LABELS = {
   /* debrief synthesis line — {strong}/{weak} are filled with meter names */
   meterSummaryHeading: "What the dials say",
   meterSummary: {
-    good:        "A well-balanced run. {strong} is your standout, and even your weakest dimension, {weak}, held its ground — the mark of a strategist who paid into every account before drawing on any.",
-    moderate:    "A creditable result built on {strong}, but {weak} was left exposed. The strategy holds; the lesson is that the dimension you under-feed is the one that closes doors when you can least afford it.",
+    good:        "A well-balanced run. {strong} is your standout, and even your weakest dimension, {weak}, held its ground — the mark of a designer who paid into every account before drawing on any.",
+    moderate:    "A creditable result built on {strong}, but {weak} was left exposed. The redesign holds; the lesson is that the dimension you under-feed is the one that closes doors when you can least afford it.",
     poor:        "You leaned hard on {strong} while {weak} drained away. By the final act the reserves that unlock the strongest options were gone, leaving only the weaker routes.",
     catastrophic:"The dials collapsed together. {weak} gave way first and pulled the rest down with it — every late door locked, every remaining choice made things worse.",
   },
